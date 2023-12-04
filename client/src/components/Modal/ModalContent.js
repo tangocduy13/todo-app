@@ -6,22 +6,44 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
+import axios from "axios";
 
 function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
-  const [radioValue, setRadioValue] = useState('');
+  const [radioValue, setRadioValue] = useState("");
+  const [userId, setUserId] = useState("");
+  const [title, setTitle] = useState("");
 
   const radios = [
-    { name: 'Yes', value: 'true' },
-    { name: 'No', value: 'false' }
-  ]
+    { name: "Yes", value: "true" },
+    { name: "No", value: "false" },
+  ];
   useEffect(() => {
     if (selectedTodo) {
+      setUserId(selectedTodo.userId);
+      setTitle(selectedTodo.title);
       setRadioValue(selectedTodo.completed.toString());
     }
   }, [selectedTodo]); // Run whenever selectedTodo changes
 
   const handleRadioChange = (value) => {
     setRadioValue(value);
+  };
+
+  const handleSave = () => {
+    const updatedTodo = {
+      userId: userId,
+      title: title,
+      completed: radioValue === "true",
+    };
+    axios
+      .put(`http://localhost:5000/api/todos/${selectedTodo.id}`, updatedTodo)
+      .then((response) => {
+        console.log("Data send successfully", response.data);
+      })
+      .catch((error) => {
+        console.error("Failed to send data to the backend:", error);
+        // Handle errors
+      });
   };
 
   return (
@@ -38,11 +60,19 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroup.Text>User:</InputGroup.Text>
-              <Form.Control aria-label="userId" value={selectedTodo.userId} />
+              <Form.Control
+                aria-label="userId"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+              />
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroup.Text>Title:</InputGroup.Text>
-              <Form.Control aria-label="userId" value={selectedTodo.title} />
+              <Form.Control
+                aria-label="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroup.Text>Done:</InputGroup.Text>
@@ -52,7 +82,7 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
                     key={idx}
                     id={`radio-${idx}`}
                     type="radio"
-                    variant={idx % 2 ? 'outline-danger' : 'outline-success'}
+                    variant={idx % 2 ? "outline-danger" : "outline-success"}
                     name="radio"
                     value={radio.value}
                     checked={radioValue === radio.value}
@@ -63,7 +93,7 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
                 ))}
               </ButtonGroup>
             </InputGroup>
-            <Button className="" variant="success">
+            <Button className="" variant="success" onClick={handleSave}>
               Save
             </Button>
           </>

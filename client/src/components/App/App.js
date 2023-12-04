@@ -3,6 +3,8 @@ import "./App.css";
 import useFetchApi from "../../hooks/useFetchApi";
 import Table from "react-bootstrap/Table";
 import ModalContent from "../Modal/ModalContent";
+import NewTodoContent from "../Modal/NewTodoContent";
+import Button from "react-bootstrap/esm/Button";
 
 function App() {
   const { data: todos, loading } = useFetchApi(
@@ -10,6 +12,7 @@ function App() {
   );
   const [showModal, setShowModal] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState(null);
+  const [showNewTodoModal, setShowNewTodoModal] = useState(false);
 
   const handleRowClick = (todo) => {
     setSelectedTodo(todo);
@@ -20,8 +23,18 @@ function App() {
     setShowModal(false);
   };
 
+  const handleNewTodo = () => {
+    setShowNewTodoModal(true);
+  };
   return (
     <div>
+      <Button onClick={handleNewTodo}>New Todo</Button>
+      {showNewTodoModal && (
+        <NewTodoContent
+          showModal={showNewTodoModal}
+          handleCloseModal={() => setShowNewTodoModal(false)}
+        />
+      )}
       <Table striped bordered hover>
         <thead>
           <tr>
