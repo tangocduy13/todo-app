@@ -39,6 +39,7 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
       .put(`http://localhost:5000/api/todos/${selectedTodo.id}`, updatedTodo)
       .then((response) => {
         console.log("Data send successfully", response.data);
+        handleCloseModal();
       })
       .catch((error) => {
         console.error("Failed to send data to the backend:", error);
@@ -46,6 +47,18 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
       });
   };
 
+  const handleDeleteTodo = () => {
+    axios
+      .delete(`http://localhost:5000/api/todos/${selectedTodo.id}`)
+      .then((response) => {
+        console.log("Deleted one todo", response.data);
+        handleCloseModal();
+      })
+      .catch((error) => {
+        console.error("Failed to send data to the backend:", error);
+        // Handle errors
+      });
+  };
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
@@ -93,9 +106,18 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
                 ))}
               </ButtonGroup>
             </InputGroup>
-            <Button className="" variant="success" onClick={handleSave}>
-              Save
-            </Button>
+            <div className="d-flex align-items-center justify-content-between">
+              <Button className="mr-2" variant="success" onClick={handleSave}>
+                Save
+              </Button>
+              <Button
+                className="mr-2"
+                variant="danger"
+                onClick={handleDeleteTodo}
+              >
+                Delete
+              </Button>
+            </div>
           </>
         )}
       </Modal.Body>

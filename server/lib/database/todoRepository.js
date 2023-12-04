@@ -30,7 +30,7 @@ function update(data) {
   }
 }
 function remove(id) {
-  const index = _todos.default.findIndex(todo => todo.id === id);
+  const index = _todos.default.findIndex(todo => todo.id == id);
   if (index !== -1) {
     _todos.default.splice(index, 1);
     return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(_todos.default));

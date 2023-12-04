@@ -10,7 +10,7 @@ import axios from "axios";
 
 function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
   const [id, setId] = useState("");
-  const [radioValue, setRadioValue] = useState("");
+  const [radioValue, setRadioValue] = useState("false");
   const [userId, setUserId] = useState("");
   const [title, setTitle] = useState("");
 
@@ -42,6 +42,7 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
       .post(`http://localhost:5000/api/todos`, newTodo)
       .then((response) => {
         console.log("Data send successfully", response.data);
+        handleCloseModal();
       })
       .catch((error) => {
         console.error("Failed to send data to the backend:", error);

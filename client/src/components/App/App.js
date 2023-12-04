@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import ModalContent from "../Modal/ModalContent";
 import NewTodoContent from "../Modal/NewTodoContent";
 import Button from "react-bootstrap/esm/Button";
+import axios from "axios";
 
 function App() {
   const { data: todos, loading } = useFetchApi(
@@ -26,6 +27,7 @@ function App() {
   const handleNewTodo = () => {
     setShowNewTodoModal(true);
   };
+
   return (
     <div>
       <Button onClick={handleNewTodo}>New Todo</Button>

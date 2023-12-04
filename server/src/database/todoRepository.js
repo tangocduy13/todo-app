@@ -27,7 +27,7 @@ export function update(data) {
 }
 
 export function remove(id) {
-  const index = todos.findIndex((todo) => todo.id === id);
+  const index = todos.findIndex((todo) => todo.id == id);
   if (index !== -1) {
     todos.splice(index, 1);
     return fs.writeFileSync("./src/database/todos.json", JSON.stringify(todos));
