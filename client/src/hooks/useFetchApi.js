@@ -19,7 +19,7 @@ function useFetchApi(url) {
   }
   useEffect(() => {
     fetchData();
-  }, [data]);
+  }, []);
 
   return {
     data,

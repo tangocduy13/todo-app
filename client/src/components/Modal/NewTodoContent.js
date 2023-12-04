@@ -7,6 +7,7 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
   const [id, setId] = useState("");
@@ -42,9 +43,11 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
       .post(`http://localhost:5000/api/todos`, newTodo)
       .then((response) => {
         console.log("Data send successfully", response.data);
+        toast.success("Created todo");
         handleCloseModal();
       })
       .catch((error) => {
+        toast.error("Create fail. Please check data you have inputed!");
         console.error("Failed to send data to the backend:", error);
         // Handle errors
       });

@@ -7,6 +7,7 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
   const [radioValue, setRadioValue] = useState("");
@@ -39,9 +40,11 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
       .put(`http://localhost:5000/api/todos/${selectedTodo.id}`, updatedTodo)
       .then((response) => {
         console.log("Data send successfully", response.data);
+        toast.success("Update successfully");
         handleCloseModal();
       })
       .catch((error) => {
+        toast.error("Update fail. Please check data you have inputed!");
         console.error("Failed to send data to the backend:", error);
         // Handle errors
       });

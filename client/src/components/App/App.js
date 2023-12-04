@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import useFetchApi from "../../hooks/useFetchApi";
 import Table from "react-bootstrap/Table";
