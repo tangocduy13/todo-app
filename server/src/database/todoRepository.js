@@ -17,11 +17,11 @@ export function create(data) {
   );
 }
 
-export function update(data) {
-  const index = todos.findIndex((todo) => todo.id == data.id);
-  console.log(data.id);
+export function update(id) {
+  const index = todos.findIndex((todo) => todo.id == id);
   if (index !== -1) {
-    todos[index] = data;
+    const completed = todos[index].completed
+    todos[index].completed = !completed;
     return fs.writeFileSync("./src/database/todos.json", JSON.stringify(todos));
   }
 }

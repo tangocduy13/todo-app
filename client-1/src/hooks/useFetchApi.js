@@ -10,7 +10,7 @@ function useFetchApi(url) {
       const resData = await res.json();
       console.log(resData);
       setData(resData);
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -25,6 +25,7 @@ function useFetchApi(url) {
     data,
     setData,
     loading,
+    refetchData: fetchData,
   };
 }
 

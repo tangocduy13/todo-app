@@ -21,11 +21,11 @@ function create(data) {
   const updatedTodos = [data, ..._todos.default];
   return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(updatedTodos));
 }
-function update(data) {
-  const index = _todos.default.findIndex(todo => todo.id == data.id);
-  console.log(data.id);
+function update(id) {
+  const index = _todos.default.findIndex(todo => todo.id == id);
   if (index !== -1) {
-    _todos.default[index] = data;
+    const completed = _todos.default[index].completed;
+    _todos.default[index].completed = !completed;
     return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(_todos.default));
   }
 }

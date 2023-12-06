@@ -13,11 +13,7 @@ router.post(
   todoMiddleware.todoInputMiddleware,
   todoHandlers.createOne
 );
-router.put(
-  "/todos/:id",
-  todoMiddleware.todoUpdateMiddleware,
-  todoHandlers.updateOne
-);
+router.put("/todos/:id", todoHandlers.updateOne);
 router.delete("/todos/:id", todoHandlers.removeOne);
 
 export default router;

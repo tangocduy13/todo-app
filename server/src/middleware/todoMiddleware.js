@@ -12,7 +12,7 @@ export async function todoInputMiddleware(ctx, next) {
     });
 
     await schema.validate(postData);
-    next();
+    return next();
   } catch (e) {
     ctx.status = 400;
     ctx.body = {
@@ -42,7 +42,7 @@ export async function todoUpdateMiddleware(ctx, next) {
     });
 
     await schema.validate(postData);
-    next();
+    return next();
   } catch (e) {
     ctx.status = 400;
     ctx.body = {

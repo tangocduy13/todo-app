@@ -18,7 +18,7 @@ async function todoInputMiddleware(ctx, next) {
       completed: yup.boolean().required()
     });
     await schema.validate(postData);
-    next();
+    return next();
   } catch (e) {
     ctx.status = 400;
     ctx.body = {
@@ -46,7 +46,7 @@ async function todoUpdateMiddleware(ctx, next) {
       completed: yup.boolean().required()
     });
     await schema.validate(postData);
-    next();
+    return next();
   } catch (e) {
     ctx.status = 400;
     ctx.body = {

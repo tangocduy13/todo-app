@@ -43,10 +43,10 @@ async function getOne(ctx) {
 async function createOne(ctx) {
   try {
     const postData = ctx.request.body;
-    console.log(postData);
     (0, _todoRepository.create)(postData);
     ctx.status = 201;
     return ctx.body = {
+      data: postData,
       success: true
     };
   } catch (e) {
@@ -60,20 +60,15 @@ async function createOne(ctx) {
 }
 async function updateOne(ctx) {
   try {
-    const data = ctx.request.body;
     let {
       id
     } = ctx.request.params;
     id = parseInt(id);
-    const mergeData = {
-      id,
-      ...data
-    };
-    console.log(mergeData);
-    (0, _todoRepository.update)(mergeData);
+    (0, _todoRepository.update)(id);
     ctx.status = 201;
     return ctx.body = {
-      success: true
+      success: true,
+      data: id
     };
   } catch (e) {
     ctx.status = 400;

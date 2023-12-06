@@ -54,6 +54,7 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
     axios
       .delete(`http://localhost:5000/api/todos/${selectedTodo.id}`)
       .then((response) => {
+        toast.success("Deleted todo successfully");
         console.log("Deleted one todo", response.data);
         handleCloseModal();
       })

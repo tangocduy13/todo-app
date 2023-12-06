@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
+function ModalAddContent({ showModal, handleCloseModal, selectedTodo }) {
   const [id, setId] = useState("");
   const [radioValue, setRadioValue] = useState("false");
   const [userId, setUserId] = useState("");
@@ -32,25 +32,28 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
     setRadioValue(value);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const newTodo = {
       id: id,
       userId: userId,
       title: title,
       completed: radioValue === "true",
     };
-    axios
-      .post(`http://localhost:5000/api/todos`, newTodo)
-      .then((response) => {
-        console.log("Data send successfully", response.data);
+    try {
+      const { data } = await axios.post(
+        `http://localhost:5000/api/todos`,
+        newTodo
+      );
+      if (data.success) {
+        console.log("Data send successfully");
         toast.success("Created todo");
-        handleCloseModal();
-      })
-      .catch((error) => {
-        toast.error("Create fail. Please check data you have inputed!");
-        console.error("Failed to send data to the backend:", error);
-        // Handle errors
-      });
+        await handleCloseModal();
+      }
+    } catch (error) {
+      toast.error("Create fail. Please check data you have inputed!");
+      console.error("Failed to send data to the backend:", error);
+      // Handle errors
+    }
   };
 
   return (
@@ -105,7 +108,7 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
             ))}
           </ButtonGroup>
         </InputGroup>
-        <Button className="" variant="success" onClick={handleSave}>
+        <Button className="" variant="success" onClick={() => handleSave()}>
           Save
         </Button>
       </Modal.Body>
@@ -113,4 +116,4 @@ function ModalContent({ showModal, handleCloseModal, selectedTodo }) {
   );
 }
 
-export default ModalContent;
+export default ModalAddContent;

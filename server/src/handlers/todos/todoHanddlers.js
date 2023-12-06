@@ -41,10 +41,11 @@ export async function getOne(ctx) {
 export async function createOne(ctx) {
   try {
     const postData = ctx.request.body;
-    console.log(postData);
+
     createTodo(postData);
     ctx.status = 201;
     return (ctx.body = {
+      data: postData,
       success: true,
     });
   } catch (e) {
@@ -59,18 +60,14 @@ export async function createOne(ctx) {
 
 export async function updateOne(ctx) {
   try {
-    const data = ctx.request.body;
+
     let { id } = ctx.request.params;
     id = parseInt(id);
-    const mergeData = {
-      id,
-      ...data,
-    };
-    console.log(mergeData);
-    updateTodo(mergeData);
+    updateTodo(id);
     ctx.status = 201;
     return (ctx.body = {
       success: true,
+      data: id
     });
   } catch (e) {
     ctx.status = 400;
