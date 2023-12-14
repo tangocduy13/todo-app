@@ -11,10 +11,8 @@ export function getOne({ id }) {
 }
 
 export function create(data) {
-  const newTodoId = todos.length + 1;
-  const newTodo = { id: newTodoId, ...data };
-  console.log(newTodo)
-  const updatedTodos = [newTodo, ...todos];
+  console.log(data)
+  const updatedTodos = [data, ...todos];
   return fs.writeFileSync(
     "./src/database/todos.json",
     JSON.stringify(updatedTodos)

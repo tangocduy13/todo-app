@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form"
-import axios from "axios";
+import axiosTodo from "../helpers/api/axiosTodo"
 
 const NewTodoModal = ({ show, handleCloseModal, addTodo }) => {
     const [title, setTitle] = useState("");
 
     const handleCreateTodo = async () => {
         try {
-            const { data } = await axios.post(("http://localhost:5000/api/todos"), {
+            const { data } = await axiosTodo.post(("/todos"), {
                 id: Math.floor(Math.random() * (500 - 11 + 1)) + 11,
                 title: title,
                 completed: false

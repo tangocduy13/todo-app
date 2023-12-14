@@ -21,13 +21,8 @@ function getOne({
   return _todos.default.find(todo => todo.id == todoId);
 }
 function create(data) {
-  const newTodoId = _todos.default.length + 1;
-  const newTodo = {
-    id: newTodoId,
-    ...data
-  };
-  console.log(newTodo);
-  const updatedTodos = [newTodo, ..._todos.default];
+  console.log(data);
+  const updatedTodos = [data, ..._todos.default];
   return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(updatedTodos));
 }
 function update({

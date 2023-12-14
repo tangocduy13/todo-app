@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useFetchApi from "../hooks/useFetchApi";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+import axiosTodo from "../helpers/api/axiosTodo";
 import NewTodoModal from "../Modal/NewTodoModal"
 import Todo from "../Model/Todo";
 
@@ -20,7 +20,7 @@ const TodoList = () => {
   }
   const removeTodo = async (id) => {
     console.log(id)
-    const response = await axios.delete(`http://localhost:5000/api/todos/${id}`)
+    const response = await axiosTodo.delete(`/todos/${id}`)
 
     if (response.data.success) {
       const updatedTodo = todos.filter((todo) => todo.id !== id)
@@ -28,7 +28,7 @@ const TodoList = () => {
     }
   }
   const completeTodo = async (id) => {
-    const response = await axios.put(`http://localhost:5000/api/todos/${id}`)
+    const response = await axiosTodo.put(`/todos/${id}`)
 
     if (response.data.success) {
       const updatedTodo = todos.map((todo) => {
@@ -44,11 +44,10 @@ const TodoList = () => {
     }
   }
 
-  const { data: todos, setData } = useFetchApi(
-    "http://localhost:5000/api/todos"
-  );
+  const { data: todos, setData } = useFetchApi({ url: "/todos" });
 
   return (
+
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
       <NewTodoModal
         show={showModal}
@@ -76,6 +75,7 @@ const TodoList = () => {
         New Todo
       </Button>
     </div>
+
   );
 };
 

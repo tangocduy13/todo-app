@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import axiosTodo from "../helpers/api/axiosTodo"
 
-const useFetchApi = (url) => {
+const useFetchApi = ({ url }) => {
   const [data, setData] = useState([]);
+  console.log(url)
   useEffect(() => {
     async function fetchApi() {
       try {
-        const resData = await (await fetch(url)).json();
-        setData(resData);
+        const response = await axiosTodo.get(url);
+        setData(response.data);
       } catch (error) {
         console.log(error);
       }

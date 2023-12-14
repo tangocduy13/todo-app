@@ -16,6 +16,7 @@ const Todo = ({ todo, completeTodo, removeTodo }) => {
             <td>{todo.title}</td>
             <td>
                 <Button
+                    size="sm"
                     variant={todo.completed ? "success" : "danger"}
                     onClick={handleComplte}
                 >
@@ -24,10 +25,11 @@ const Todo = ({ todo, completeTodo, removeTodo }) => {
             </td>
             <td>
                 <Button
+                    size="sm"
                     variant="danger"
                     onClick={handDelete}
                 >
-                    Delete
+                    X
                 </Button>
             </td>
         </tr>
