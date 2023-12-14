@@ -41,7 +41,11 @@ const NewTodoModal = ({ show, handleCloseModal, addTodo }) => {
                 <Button variant="secondary" onClick={handleCloseModal}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleCreateTodo}>
+                <Button
+                    variant="primary"
+                    onClick={handleCreateTodo}
+                    disabled={title.trim() === ""}
+                >
                     Save Todo
                 </Button>
             </Modal.Footer>
