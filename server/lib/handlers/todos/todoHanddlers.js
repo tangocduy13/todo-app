@@ -24,10 +24,10 @@ async function getTodos(ctx) {
 }
 async function getOne(ctx) {
   try {
-    const {
+    const id = ctx.params.id;
+    const todo = (0, _todoRepository.getOne)({
       id
-    } = ctx.request.params;
-    const todo = (0, _todoRepository.getOne)(id);
+    });
     ctx.body = {
       data: todo
     };
@@ -55,20 +55,16 @@ async function createOne(ctx) {
       success: false,
       error: e.message
     };
-    console.log("hand");
   }
 }
 async function updateOne(ctx) {
   try {
-    let {
+    let id = ctx.params.id;
+    (0, _todoRepository.update)({
       id
-    } = ctx.request.params;
-    id = parseInt(id);
-    (0, _todoRepository.update)(id);
-    ctx.status = 201;
+    });
     return ctx.body = {
-      success: true,
-      data: id
+      success: true
     };
   } catch (e) {
     ctx.status = 400;
@@ -80,11 +76,10 @@ async function updateOne(ctx) {
 }
 async function removeOne(ctx) {
   try {
-    const {
+    const id = ctx.params.id;
+    (0, _todoRepository.remove)({
       id
-    } = ctx.request.params;
-    (0, _todoRepository.remove)(id);
-    ctx.status = 201;
+    });
     return ctx.body = {
       success: true
     };

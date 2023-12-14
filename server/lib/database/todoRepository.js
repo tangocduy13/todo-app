@@ -14,23 +14,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getAll() {
   return _todos.default;
 }
-function getOne(id) {
-  return _todos.default.find(todo => todo.id == id);
+function getOne({
+  id
+}) {
+  let todoId = parseInt(id);
+  return _todos.default.find(todo => todo.id == todoId);
 }
 function create(data) {
-  const updatedTodos = [data, ..._todos.default];
+  const newTodoId = _todos.default.length + 1;
+  const newTodo = {
+    id: newTodoId,
+    ...data
+  };
+  console.log(newTodo);
+  const updatedTodos = [newTodo, ..._todos.default];
   return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(updatedTodos));
 }
-function update(id) {
-  const index = _todos.default.findIndex(todo => todo.id == id);
+function update({
+  id
+}) {
+  let todoId = parseInt(id);
+  const index = _todos.default.findIndex(todo => todo.id == todoId);
   if (index !== -1) {
     const completed = _todos.default[index].completed;
     _todos.default[index].completed = !completed;
     return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(_todos.default));
   }
 }
-function remove(id) {
-  const index = _todos.default.findIndex(todo => todo.id == id);
+function remove({
+  id
+}) {
+  let todoId = parseInt(id);
+  const index = _todos.default.findIndex(todo => todo.id == todoId);
   if (index !== -1) {
     _todos.default.splice(index, 1);
     return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(_todos.default));

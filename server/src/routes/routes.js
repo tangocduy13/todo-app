@@ -1,6 +1,6 @@
 import Router from "koa-router";
 import * as todoHandlers from "../handlers/todos/todoHanddlers";
-import * as todoMiddleware from "../middleware/todoMiddleware";
+import todoMiddleware from "../middleware/todoMiddleware";
 
 const router = new Router({
   prefix: "/api",
@@ -8,11 +8,7 @@ const router = new Router({
 
 router.get("/todos", todoHandlers.getTodos);
 router.get("/todos/:id", todoHandlers.getOne);
-router.post(
-  "/todos",
-  todoMiddleware.todoInputMiddleware,
-  todoHandlers.createOne
-);
+router.post("/todos", todoMiddleware, todoHandlers.createOne);
 router.put("/todos/:id", todoHandlers.updateOne);
 router.delete("/todos/:id", todoHandlers.removeOne);
 

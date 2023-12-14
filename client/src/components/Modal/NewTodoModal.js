@@ -10,13 +10,12 @@ const NewTodoModal = ({ show, handleCloseModal, addTodo }) => {
     const handleCreateTodo = async () => {
         try {
             const { data } = await axios.post(("http://localhost:5000/api/todos"), {
-                id: Math.floor(Math.random() * (500 - 201 + 1)) + 201,
-                userId: 1,
+                id: Math.floor(Math.random() * (500 - 11 + 1)) + 11,
                 title: title,
                 completed: false
             })
             addTodo(data.data)
-            console.log(data)
+            console.log(data.data)
             handleCloseModal()
             setTitle("")
 

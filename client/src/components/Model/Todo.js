@@ -13,7 +13,6 @@ const Todo = ({ todo, completeTodo, removeTodo }) => {
 
     return (
         <tr>
-            <td>{todo.id}</td>
             <td>{todo.title}</td>
             <td>
                 <Button

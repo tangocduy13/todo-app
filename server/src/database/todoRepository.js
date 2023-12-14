@@ -5,20 +5,25 @@ export function getAll() {
   return todos;
 }
 
-export function getOne(id) {
-  return todos.find((todo) => todo.id == id);
+export function getOne({ id }) {
+  let todoId = parseInt(id);
+  return todos.find((todo) => todo.id == todoId);
 }
 
 export function create(data) {
-  const updatedTodos = [data, ...todos];
+  const newTodoId = todos.length + 1;
+  const newTodo = { id: newTodoId, ...data };
+  console.log(newTodo)
+  const updatedTodos = [newTodo, ...todos];
   return fs.writeFileSync(
     "./src/database/todos.json",
     JSON.stringify(updatedTodos)
   );
 }
 
-export function update(id) {
-  const index = todos.findIndex((todo) => todo.id == id);
+export function update({ id }) {
+  let todoId = parseInt(id);
+  const index = todos.findIndex((todo) => todo.id == todoId);
   if (index !== -1) {
     const completed = todos[index].completed
     todos[index].completed = !completed;
@@ -26,8 +31,9 @@ export function update(id) {
   }
 }
 
-export function remove(id) {
-  const index = todos.findIndex((todo) => todo.id == id);
+export function remove({ id }) {
+  let todoId = parseInt(id);
+  const index = todos.findIndex((todo) => todo.id == todoId);
   if (index !== -1) {
     todos.splice(index, 1);
     return fs.writeFileSync("./src/database/todos.json", JSON.stringify(todos));

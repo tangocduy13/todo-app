@@ -22,8 +22,8 @@ export async function getTodos(ctx) {
 
 export async function getOne(ctx) {
   try {
-    const { id } = ctx.request.params;
-    const todo = getOneTodo(id);
+    const id = ctx.params.id;
+    const todo = getOneTodo({ id });
 
     ctx.body = {
       data: todo,
@@ -54,20 +54,17 @@ export async function createOne(ctx) {
       success: false,
       error: e.message,
     };
-    console.log("hand");
   }
 }
 
 export async function updateOne(ctx) {
   try {
 
-    let { id } = ctx.request.params;
-    id = parseInt(id);
-    updateTodo(id);
-    ctx.status = 201;
+    let id = ctx.params.id;
+    updateTodo({ id });
+
     return (ctx.body = {
       success: true,
-      data: id
     });
   } catch (e) {
     ctx.status = 400;
@@ -80,9 +77,9 @@ export async function updateOne(ctx) {
 
 export async function removeOne(ctx) {
   try {
-    const { id } = ctx.request.params;
-    removeTodo(id);
-    ctx.status = 201;
+    const id = ctx.params.id;
+    removeTodo({ id });
+
     return (ctx.body = {
       success: true,
     });

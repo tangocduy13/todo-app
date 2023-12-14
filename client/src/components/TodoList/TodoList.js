@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import useFetchApi from "../hooks/useFetchApi";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
 import axios from "axios";
 import NewTodoModal from "../Modal/NewTodoModal"
 import Todo from "../Model/Todo";
@@ -51,10 +49,7 @@ const TodoList = () => {
   );
 
   return (
-    <div>
-      <Button variant="primary" onClick={handleShowModal}>
-        New Todo
-      </Button>
+    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
       <NewTodoModal
         show={showModal}
         addTodo={addTodo}
@@ -63,12 +58,11 @@ const TodoList = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Title</th>
-            <th>Action</th>
+            <th>Done</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody striped bordered hover>
           {todos.map((todo) => (
             <Todo
               todo={todo}
@@ -78,6 +72,9 @@ const TodoList = () => {
           ))}
         </tbody>
       </Table>
+      <Button variant="primary" onClick={handleShowModal}>
+        New Todo
+      </Button>
     </div>
   );
 };
