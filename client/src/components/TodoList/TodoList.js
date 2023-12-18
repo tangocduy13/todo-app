@@ -53,12 +53,6 @@ const TodoList = () => {
         handleCloseModal={handleCloseModal}
       />
       <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Done</th>
-          </tr>
-        </thead>
         <tbody striped bordered hover>
           {todos.map((todo) => (
             <Todo
