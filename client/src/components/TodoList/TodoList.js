@@ -3,32 +3,31 @@ import useFetchApi from "../hooks/useFetchApi";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import axiosTodo from "../helpers/api/axiosTodo";
-import NewTodoModal from "../Modal/NewTodoModal"
+import NewTodoModal from "../Modal/NewTodoModal";
 import Todo from "../Model/Todo";
 
 const TodoList = () => {
-
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
   const handleShowModal = () => {
-    setShowModal(true)
-  }
+    setShowModal(true);
+  };
   const addTodo = (newTodo) => {
-    setData((prevTodos) => [newTodo, ...prevTodos])
-  }
+    setData((prevTodos) => [newTodo, ...prevTodos]);
+  };
   const removeTodo = async (id) => {
-    console.log(id)
-    const response = await axiosTodo.delete(`/todos/${id}`)
+    console.log(id);
+    const response = await axiosTodo.delete(`/todos/${id}`);
 
     if (response.data.success) {
-      const updatedTodo = todos.filter((todo) => todo.id !== id)
+      const updatedTodo = todos.filter((todo) => todo.id !== id);
       setData(updatedTodo);
     }
-  }
+  };
   const completeTodo = async (id) => {
-    const response = await axiosTodo.put(`/todos/${id}`)
+    const response = await axiosTodo.put(`/todos/${id}`);
 
     if (response.data.success) {
       const updatedTodo = todos.map((todo) => {
@@ -36,19 +35,18 @@ const TodoList = () => {
           return {
             ...todo,
             completed: !todo.completed,
-          }
+          };
         }
         return todo;
-      })
-      setData(updatedTodo)
+      });
+      setData(updatedTodo);
     }
-  }
+  };
 
   const { data: todos, setData } = useFetchApi({ url: "/todos" });
 
   return (
-
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ maxWidth: "800px", margin: "0 auto" }}>
       <NewTodoModal
         show={showModal}
         addTodo={addTodo}
@@ -75,7 +73,6 @@ const TodoList = () => {
         New Todo
       </Button>
     </div>
-
   );
 };
 
