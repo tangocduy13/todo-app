@@ -27,7 +27,7 @@ const TodoList = () => {
     }
   };
   const completeTodo = async (id) => {
-    const response = await axiosTodo.put(`/todos/${id}`);
+    const response = await axiosTodo.patch(`/todos/${id}`);
 
     if (response.data.success) {
       const updatedTodo = todos.map((todo) => {

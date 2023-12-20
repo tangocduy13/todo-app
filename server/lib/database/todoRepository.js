@@ -22,7 +22,11 @@ function getOne({
 }
 function create(data) {
   console.log(data);
-  const updatedTodos = [data, ..._todos.default];
+  const newTodo = {
+    ...data,
+    id: Math.floor(Math.random() * (500 - 11 + 1)) + 11
+  };
+  const updatedTodos = [newTodo, ..._todos.default];
   return _fs.default.writeFileSync("./src/database/todos.json", JSON.stringify(updatedTodos));
 }
 function update({

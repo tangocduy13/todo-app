@@ -10,7 +10,6 @@ const NewTodoModal = ({ show, handleCloseModal, addTodo }) => {
     const handleCreateTodo = async () => {
         try {
             const { data } = await axiosTodo.post(("/todos"), {
-                id: Math.floor(Math.random() * (500 - 11 + 1)) + 11,
                 title: title,
                 completed: false
             })

@@ -15,8 +15,8 @@ const router = new _koaRouter.default({
 });
 router.get("/todos", todoHandlers.getTodos);
 router.get("/todos/:id", todoHandlers.getOne);
-router.post("/todos", _todoMiddleware.default, todoHandlers.createOne);
-router.put("/todos/:id", todoHandlers.updateOne);
+router.post("/todos", _todoMiddleware.default, todoHandlers.createOne); // ko trả về ID
+router.patch("/todos/:id", todoHandlers.updateOne); // dùng patch thay vì dùng put
 router.delete("/todos/:id", todoHandlers.removeOne);
 var _default = exports.default = router;
 //# sourceMappingURL=routes.js.map
